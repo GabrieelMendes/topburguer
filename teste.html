@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cardápio de Açaí</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fdfdfd;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    .cardapio {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #7a1fa2;
+    }
+
+    .section {
+      margin-top: 20px;
+    }
+
+    .section h2 {
+      color: #5e107b;
+      font-size: 20px;
+    }
+
+    .opcoes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    label {
+      background: #f3e5f5;
+      padding: 10px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      flex: 1 0 45%;
+      text-align: center;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      display: none;
+    }
+
+    input:checked + label {
+      background: #9c27b0;
+      color: white;
+      font-weight: bold;
+    }
+
+    button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 15px;
+      background: #8e24aa;
+      border: none;
+      color: white;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #6a1b9a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cardapio">
+    <h1>🍧 Açaí do Biel</h1>
+
+    <div class="section">
+      <h2>Tamanho</h2>
+      <div class="opcoes">
+        <input type="radio" name="tamanho" id="300ml" value="300ml">
+        <label for="300ml">300ml - R$10</label>
+
+        <input type="radio" name="tamanho" id="500ml" value="500ml">
+        <label for="500ml">500ml - R$15</label>
+
+        <input type="radio" name="tamanho" id="700ml" value="700ml">
+        <label for="700ml">700ml - R$20</label>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Adicionais</h2>
+      <div class="opcoes">
+        <input type="checkbox" id="banana" value="Banana">
+        <label for="banana">🍌 Banana</label>
+
+        <input type="checkbox" id="leite" value="Leite condensado">
+        <label for="leite">🥛 Leite condensado</label>
+
+        <input type="checkbox" id="granola" value="Granola">
+        <label for="granola">🌾 Granola</label>
+
+        <input type="checkbox" id="morango" value="Morango">
+        <label for="morango">🍓 Morango</label>
+
+        <input type="checkbox" id="paçoca" value="Paçoca">
+        <label for="paçoca">🍬 Paçoca</label>
+      </div>
+    </div>
+
+    <button onclick="enviarPedido()">📲 Enviar pedido</button>
+  </div>
+
+  <script>
+    function enviarPedido() {
+      const tamanho = document.querySelector('input[name="tamanho"]:checked');
+      const adicionais = document.querySelectorAll('input[type="checkbox"]:checked');
+
+      if (!tamanho) {
+        alert("Escolha um tamanho!");
+        return;
+      }
+
+      let adicionaisTexto = [...adicionais].map(el => el.value).join(", ");
+      if (!adicionaisTexto) adicionaisTexto = "sem adicionais";
+
+      const mensagem = `Olá! Quero um açaí de ${tamanho.value} com ${adicionaisTexto}.`;
+      const telefone = "5599999999999"; // Seu número com DDD e 55
+      const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
+      window.open(url, "_blank");
+    }
+  </script>
+
+</body>
+</html>
